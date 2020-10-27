@@ -6,4 +6,3 @@ C:\linodh\Learn\EFCore-3\SamuraiApp\SamuraiApp.Domain\obj\Debug\netstandard2.0\S
 C:\linodh\Learn\EFCore-3\SamuraiApp\SamuraiApp.Domain\obj\Debug\netstandard2.0\SamuraiApp.Domain.csproj.CoreCompileInputs.cache
 C:\linodh\Learn\EFCore-3\SamuraiApp\SamuraiApp.Domain\obj\Debug\netstandard2.0\SamuraiApp.Domain.dll
 C:\linodh\Learn\EFCore-3\SamuraiApp\SamuraiApp.Domain\obj\Debug\netstandard2.0\SamuraiApp.Domain.pdb
-C:\linodh\Learn\EFCore-3\SamuraiApp\SamuraiApp.Domain\obj\Debug\netstandard2.0\SamuraiApp.Domain.csprojAssemblyReference.cache

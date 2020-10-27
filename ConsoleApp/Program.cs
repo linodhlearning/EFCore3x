@@ -23,29 +23,178 @@ namespace ConsoleApp
                     GetLastSamurai();
                 }
                 else if (args[0] == "2")
-                { 
-                //4 or more object adding will be batched
-                  //  AddSamurai("s1");
-                  //DeleteSamurai(2);
-                  //DeleteSamuraiDirect(3);
-
+                {
+                    //4 or more object adding will be batched
+                    //  AddSamurai("s1");
+                    //DeleteSamurai(2);
+                    //DeleteSamuraiDirect(3); 
                 }
-                else if(args[0]=="3"){
+                else if (args[0] == "3")
+                {
                     QueryAndUpdateBattle_Disconnected();
                 }
-            }
-           
+                else if (args[0] == "4")
+                {
+                    NoTrackingQueryContext();
+                }
+                else if (args[0] == "5")
+                { // attach
+                    AddQuoteToExistingSamuraiNotTracking(4);
+                    AddQuoteToExistingSamuraiNotTracking_2(5);
+                }
+                else if (args[0] == "6")
+                {
+                    EagerLoad_SamuraiQuotes();
+                }
+                else if (args[0] == "7")
+                {
+                    Project_SamuraiQuotes();
+                }
+                else if (args[0] == "8")
+                {
+                    // explicit loading
+                    ExplicitLoad_SamuraiQuotes();
+                }
+                else if (args[0] == "9")
+                {
+                    // Lazy loading
+                    /**
+                     * Every Nav property must be virtual
+                     * Microsoft.EntiyFramework.Proxies Package needed
+                     * ModelBuilder.UseLazyLoadingProxies()
+                     * **/
+                }
+                else if (args[0] == "10")
+                {
+                    ModifyRelatedData_WhenNotTracked();
+                }
+                else if (args[0] == "11")
+                {
+                    JoinBattleAndSamurai();
+                    EnlistSamuraiToABattle();
+                    RemoveSamuraiBattle_1();
+                }
+                else if (args[0] == "12")
+                {
+                    GetSamuraisWithBattles();
 
+                }
+            }
 
             Console.ReadKey();
         }
 
+        private static void GetSamuraisWithBattles()
+        {
+            var sbs = _context.Samurais
+            .Include(s => s.SamuraiBattles)
+            .ThenInclude(sb => sb.Battle)
+            .FirstOrDefault(s => s.Id == 4);
+
+            //OR
+
+            var sbs2 = _context.Samurais.Where(s => s.Id == 2)
+            .Select(s => new
+            {
+                Samurai = s,
+                Battles = s.SamuraiBattles.Select(sb => sb.Battle)
+            }).FirstOrDefault();
+        }
+
+        private static void RemoveSamuraiBattle_1()
+        {
+            var samuraiBattle = new SamuraiBattle { SamuraiId = 2, BattleId = 1 };
+            _context.Remove(samuraiBattle);
+            _context.SaveChanges();
+        }
+
+        private static void EnlistSamuraiToABattle()
+        {
+            var battle = _context.Battles.Find(1);
+            battle.SamuraiBattles.Add(new SamuraiBattle { SamuraiId = 4 });
+            _context.SaveChanges();
+        }
+
+        private static void JoinBattleAndSamurai()
+        {
+            var sb = new SamuraiBattle { BattleId = 1, SamuraiId = 4 };
+            _context.Add(sb);// see no db set exposed for samurai battle
+            _context.SaveChanges();
+        }
+
+        private static void ModifyRelatedData_WhenNotTracked()
+        {
+            var samuari = _context.Samurais.Include(s => s.Quotes).FirstOrDefault(s => s.Id == 4);
+            var quote = samuari.Quotes[0];
+            quote.Text = "changed Text";
+            using (var newContext = new SamuraiContext())
+            {
+                // newContext.Quotes.Update(quote);// EF Core would have updated all the quotes instead of just the changed one
+                newContext.Entry(quote).State = EntityState.Modified; //only going to track the changed one
+                newContext.SaveChanges();
+            }
+        }
+
+        private static void ExplicitLoad_SamuraiQuotes()
+        {
+            //only for one specific samurai object
+            var samurai = _context.Samurais.FirstOrDefault();
+            _context.Entry(samurai).Collection(s => s.Quotes).Load();
+            _context.Entry(samurai).Reference(s => s.Horse).Load();
+
+        }
+
+        private static void Project_SamuraiQuotes()
+        {
+            // anonymous type to project data (entities are still tracked by EF Core)
+            var s = _context.Samurais.Select(s => new { s.Id, s.Name, s.Quotes }).ToList();
+        }
+
+        private static void EagerLoad_SamuraiQuotes()
+        {
+
+            var quotes = _context.Samurais
+            .Include(s => s.Quotes)
+            .ThenInclude(t => t.Translations).ToList();
+            Console.WriteLine(quotes);
+        }
+
+        private static void AddQuoteToExistingSamuraiNotTracking(int samuraiId)
+        {
+            var samurai = _context.Samurais.Find(samuraiId);
+            samurai.Quotes.Add(new Quote { Text = "test no track " });
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Samurais.Attach(samurai);
+                newContext.SaveChanges();
+            }
+        }
+        private static void AddQuoteToExistingSamuraiNotTracking_2(int samuraiId)
+        {
+            var samurai = _context.Samurais.Find(samuraiId);
+            samurai.Quotes.Add(new Quote { Text = "test no track ", SamuraiId = samuraiId });
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Samurais.Add(samurai);
+                newContext.SaveChanges();
+            }
+        }
+
+        private static void NoTrackingQueryContext()
+        {
+            using (var newContextInstance = new SamuraiContextNoTrack())
+            {
+                var lastSamuari = newContextInstance.Samurais.OrderBy(a => a.Id).LastOrDefault();
+                Console.WriteLine(lastSamuari.Name);
+            }
+        }
         private static void QueryAndUpdateBattle_Disconnected()
         {
             var battle = _context.Battles.AsNoTracking().FirstOrDefault();
             battle.EndDate = new DateTime(1986, 08, 05);
 
-             using(var newContextInstance= new SamuraiContext()){//context and update as no tracking
+            using (var newContextInstance = new SamuraiContext())
+            {//context and update as no tracking
                 newContextInstance.Battles.Update(battle);
                 newContextInstance.SaveChanges();
             }
@@ -71,11 +220,11 @@ namespace ConsoleApp
             foreach (var q in lastSamuari.Quotes)
             {
                 Console.WriteLine($"Quote: {q.Text}");
-                Console.WriteLine($"Translations: {string.Join(',',q.Translations.Select(t=> string.Concat(t.LanguageCode," - ",t.Description)).ToArray())}");
+                Console.WriteLine($"Translations: {string.Join(',', q.Translations.Select(t => string.Concat(t.LanguageCode, " - ", t.Description)).ToArray())}");
             }
         }
 
-        private static void AddSamurai(string name="sam")
+        private static void AddSamurai(string name = "sam")
         {
             var q1 = new Quote
             {
@@ -86,7 +235,7 @@ namespace ConsoleApp
                     new Translation {LanguageCode="it",Description="Perché non sai mai cosa c'è dietro quel dannato cielo" }
                         }
             };
-            var q2= new Quote
+            var q2 = new Quote
             {
                 Text = "You can always die. It's living that takes real courage",
                 Translations = new List<Translation> {
@@ -95,7 +244,7 @@ namespace ConsoleApp
                     new Translation {LanguageCode="it",Description="Puoi sempre morire. È vivere che richiede vero coraggio" }
                         }
             };
-            var qs = new List<Quote> { q1,q2 };
+            var qs = new List<Quote> { q1, q2 };
 
             var s = new Samurai { Name = name, Quotes = qs };
             _context.Samurais.Add(s);

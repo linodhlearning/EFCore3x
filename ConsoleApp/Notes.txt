@@ -1,0 +1,38 @@
+﻿EF Core 3.1
+EF Core migrations (source control friendly)
+ - needs a entry point for migrations (e.g. console proj)
+ add-migration init
+ 
+ Microsoft.EntityFrameworkCore.Tools (powershell)
+ Microsoft.EntityFrameworkCore.Tools.Dotnet (CLI)
+ 
+ script-migration
+
+ 
+ Add-Migration init
+ 
+ Add-Migration  <NameofChange>
+  update-database -verbose (Create your database and schema)
+  
+  
+ scaffold-dbcontext
+ 
+ override with
+ conventions, fluent API mappings,  data annotations
+ 
+ Tracking changes
+ context.entities.add(entity)
+ 
+ Begin and commit transaction inserted b4 and after by EFCore
+  
+ 
+ .Attach
+ .Add
+ .Update
+ 
+1. Eager loading- include 
+ query projections - shape of query results
+ explicit loading-related data of obj in mem(some in mem n rest needs from db)
+ Lazy loading
+ 
+ 
