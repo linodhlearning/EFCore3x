@@ -8,6 +8,7 @@
 //        }
 //    }
 //}
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SamuraiApp.Domain;

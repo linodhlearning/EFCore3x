@@ -11,8 +11,8 @@ EF Core migrations (source control friendly)
  
  Add-Migration init
  
- Add-Migration  <NameofChange>
-  update-database -verbose (Create your database and schema)
+Add-Migration  <NameofChange>
+update-database -verbose (Create your database and schema)
   
   
  scaffold-dbcontext
@@ -25,7 +25,10 @@ EF Core migrations (source control friendly)
  
  Begin and commit transaction inserted b4 and after by EFCore
   
- 
+add-migration -Context "SamuraiContext" "NewStoredProcs"
+Update-Database -Context "SamuraiContext"
+
+
  .Attach
  .Add
  .Update
@@ -34,5 +37,10 @@ EF Core migrations (source control friendly)
  query projections - shape of query results
  explicit loading-related data of obj in mem(some in mem n rest needs from db)
  Lazy loading
- 
- 
+
+ EF 3.x onwards keyless entity can be tracked using querytypes
+
+ DB set methods to run raw SQLs
+ _context.Samuaris.FromSQLRaw("sql string").ToList();
+ _context.Samuaris.FromSQLRawAsync("sql string").ToList();
+ _context.Samuaris.FromSQLInterpolated($"sql string {var} ").ToList();

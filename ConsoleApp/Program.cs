@@ -7,6 +7,10 @@ using System.Linq;
 
 namespace ConsoleApp
 {
+    /*
+     * add-migration -Context "SamuraiContext" "NewStoredProcs"
+     Update-Database -Context "SamuraiContext"
+     */
     class Program
     {
         private static SamuraiContext _context = new SamuraiContext();
@@ -79,9 +83,69 @@ namespace ConsoleApp
                     GetSamuraisWithBattles();
 
                 }
+                else if (args[0] == "13")
+                {
+                    GetSamuraisWithBattles();
+                    GetSamuraiWithClan();
+                    GetClanWithSamurai();
+                }
+                else if (args[0] == "14")
+                {
+                    //KEYLESS entities 
+                    GetSamuariBattleStatistics(1);
+                }
+                else if (args[0] == "15")
+                {
+                    QueryUsingRaw_1(1);
+                }
+                else if (args[0] == "16")
+                {
+                    QueryUsingRawSQLStoredProcedure();
+                }
+                else if (args[0] == "17")
+                {
+                    RunRawSQLCommands();
+                }
             }
 
             Console.ReadKey();
+        }
+
+        private static void RunRawSQLCommands()
+        {
+            string text = "ha";
+            var s1 = _context.Database.ExecuteSqlRaw("Exec dbo.SamuarisWithQuote {0}", text);
+        }
+
+        private static void QueryUsingRawSQLStoredProcedure()
+        {
+            var text = "ha";
+            var samurais1 = _context.Samurais.FromSqlRaw("Exec dbo.SamuarisWithQuote {0}", text).ToList();
+            //or use interpolation
+            var samurais2 = _context.Samurais.FromSqlInterpolated($"Exec dbo.SamuarisWithQuote {text}").ToList();
+        }
+
+        private static void QueryUsingRaw_1(int samuariId)
+        {
+            var samuaris = _context.Samurais.FromSqlRaw("select * from Samurais").ToList();
+        }
+
+        private static void GetSamuariBattleStatistics(int v)
+        {
+            var stat = _context.SamuraiBattleStats.FirstOrDefault(s => s.Name == "CDC");
+            //but we cant use DBSET methods like Find as there is no key on this view
+            var errorGenerated = _context.SamuraiBattleStats.Find(1);//compiler happy runtime surprise :)
+        }
+
+        private static void GetClanWithSamurai()
+        {
+            var clan = _context.Clans.Find(1);
+            var samuraisForClan = _context.Samurais.Where(s => s.Clan.Id == 1).ToList();
+
+        }
+        private static void GetSamuraiWithClan()
+        {
+            var samurai = _context.Samurais.Include(s => s.Clan).ToList();
         }
 
         private static void GetSamuraisWithBattles()

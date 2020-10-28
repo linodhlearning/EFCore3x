@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0o7oHJmpevmIBQKYiDk3eEBYP2GcXCjLRp5rgliSFRKkf0pmmNMBMmlNVbvbT20SrLsHt+nwOGy8eADzwjg1Aw==",
+  "dgSpecHash": "v+mTIic1vKH6UCFWT6xMBHY59ilFrJjxb0KB6vVTXoJeI29xqd+X9vXKY9uj1YHOc/vXgt2oE7xu27l8UQ2HGA==",
   "success": true,
-  "projectFilePath": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Data\\SamuraiApp.Data.csproj",
+  "projectFilePath": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Data\\SamuraiApp.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\linodht\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\linodht\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

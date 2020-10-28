@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Data\\SamuraiApp.Data.csproj": {}
+    "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Data\\SamuraiApp.Data.csproj": {}
   },
   "projects": {
-    "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Data\\SamuraiApp.Data.csproj": {
+    "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Data\\SamuraiApp.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Data\\SamuraiApp.Data.csproj",
+        "projectUniqueName": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Data\\SamuraiApp.Data.csproj",
         "projectName": "SamuraiApp.Data",
-        "projectPath": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Data\\SamuraiApp.Data.csproj",
+        "projectPath": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Data\\SamuraiApp.Data.csproj",
         "packagesPath": "C:\\Users\\linodht\\.nuget\\packages\\",
-        "outputPath": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Data\\obj\\",
+        "outputPath": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -27,13 +27,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\prod\\vec\\DevelopmentDrop\\Nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj": {
-                "projectPath": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj"
+              "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj": {
+                "projectPath": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj"
               }
             }
           }
@@ -75,14 +76,14 @@
         }
       }
     },
-    "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj": {
+    "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj",
+        "projectUniqueName": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj",
         "projectName": "SamuraiApp.Domain",
-        "projectPath": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj",
+        "projectPath": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Domain\\SamuraiApp.Domain.csproj",
         "packagesPath": "C:\\Users\\linodht\\.nuget\\packages\\",
-        "outputPath": "C:\\linodh\\Learn\\EFCore-3\\SamuraiApp\\SamuraiApp.Domain\\obj\\",
+        "outputPath": "C:\\linodh\\Learn\\EFCore-3\\EFCore3x\\SamuraiApp.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -98,6 +99,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\prod\\vec\\DevelopmentDrop\\Nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
