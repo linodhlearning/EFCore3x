@@ -8,12 +8,12 @@ using System.Linq;
 namespace ConsoleApp
 {
     /*
-     * add-migration -Context "SamuraiContext" "NewStoredProcs"
-     Update-Database -Context "SamuraiContext"
+     * add-migration -Context "SamuraiContext_OLD" "NewStoredProcs"
+     Update-Database -Context "SamuraiContext_OLD"
      */
     class Program
     {
-        private static SamuraiContext _context = new SamuraiContext();
+        private static SamuraiContext_OLD _context = new SamuraiContext_OLD();
         static void Main(string[] args)
         {
             _context.Database.EnsureCreated();
@@ -191,7 +191,7 @@ namespace ConsoleApp
             var samuari = _context.Samurais.Include(s => s.Quotes).FirstOrDefault(s => s.Id == 4);
             var quote = samuari.Quotes[0];
             quote.Text = "changed Text";
-            using (var newContext = new SamuraiContext())
+            using (var newContext = new SamuraiContext_OLD())
             {
                 // newContext.Quotes.Update(quote);// EF Core would have updated all the quotes instead of just the changed one
                 newContext.Entry(quote).State = EntityState.Modified; //only going to track the changed one
@@ -227,7 +227,7 @@ namespace ConsoleApp
         {
             var samurai = _context.Samurais.Find(samuraiId);
             samurai.Quotes.Add(new Quote { Text = "test no track " });
-            using (var newContext = new SamuraiContext())
+            using (var newContext = new SamuraiContext_OLD())
             {
                 newContext.Samurais.Attach(samurai);
                 newContext.SaveChanges();
@@ -237,7 +237,7 @@ namespace ConsoleApp
         {
             var samurai = _context.Samurais.Find(samuraiId);
             samurai.Quotes.Add(new Quote { Text = "test no track ", SamuraiId = samuraiId });
-            using (var newContext = new SamuraiContext())
+            using (var newContext = new SamuraiContext_OLD())
             {
                 newContext.Samurais.Add(samurai);
                 newContext.SaveChanges();
@@ -257,7 +257,7 @@ namespace ConsoleApp
             var battle = _context.Battles.AsNoTracking().FirstOrDefault();
             battle.EndDate = new DateTime(1986, 08, 05);
 
-            using (var newContextInstance = new SamuraiContext())
+            using (var newContextInstance = new SamuraiContext_OLD())
             {//context and update as no tracking
                 newContextInstance.Battles.Update(battle);
                 newContextInstance.SaveChanges();
