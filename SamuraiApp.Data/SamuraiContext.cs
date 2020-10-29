@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Logging;
 using SamuraiApp.Domain;
 namespace SamuraiApp.Data
-{ 
-    public class SamuraiContext  : DbContext
+{
+    public class SamuraiContext : DbContext
     {
-        public SamuraiContext(DbContextOptions<SamuraiContext> options):base(options)
+        public SamuraiContext(DbContextOptions<SamuraiContext> options) : base(options)
         {
-          //  ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //  ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<Samurai> Samurais { get; set; }
@@ -17,7 +17,7 @@ namespace SamuraiApp.Data
         public DbSet<Translation> Translations { get; set; }
 
         public DbSet<SamuraiBattleStat> SamuraiBattleStats { get; set; }
- 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SamuraiBattle>().HasKey(s => new { s.SamuraiId, s.BattleId });
